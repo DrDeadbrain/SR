@@ -1,0 +1,34 @@
+% Wavedatei lesen --> y 
+[y, Samplefrequenz] = audioread('C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ01\GitRiff02.wav');
+% Anzahl der Samples best.
+FileSize = size(y, 1);
+
+% Speicher für gefiltertes Signal anlegen
+yDist = zeros(FileSize, 1);
+
+type = input('Enter a distortion type(tanh= 1, bendiksen = 2): ');
+d = input('Enter a distortion strength: ');
+
+
+
+GuitarDistortion(y, type, d);
+
+%Delay (Echo)
+delayed_y = [zeros(1,6000) y];
+feedback(y, delayed_y);
+sound(
+
+function yDist = GuitarDistortion(x, type, d)
+    switch type
+        case 1
+          yDist = tanh(d*x);
+          sound(yDist)
+        case 2
+          z = d * x;
+          yDist = -sign(-z) .* (1 - exp(sign(-z).*z));
+          sound(yDist)
+        otherwise
+          disp('Unknown Input')
+    end
+end
+
