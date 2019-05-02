@@ -30,9 +30,24 @@ pause(10);
 
 %Delay (Echo)
 
+%n = 60000;
+%delayed_signal = [zeros(n, size(y,2)); y];
+%sound(delayed_signal,Samplefrequenz);
+
 shifted_data = delayseq(y, 6000);
 y_delayed =feedback( y + shifted_data, +1);
 sound(y_delayed, Samplefrequenz);
+
+%sound(full_sig, Samplefrequenz);
+%echo_delay = 0.2722; %in seconds
+%echo_delay_s = round(echo_delay*Samplefrequenz); % delay in samples
+%echo_gain = 0.1; % to control a linear gain of an echo
+%y_echoed =feedback(y, [zeros(echo_delay_s - 1, 1); y(echo_delay_s:end)]);
+%disp(y_echoed);
+%y_echoed_normiert = y_echoed/max(abs(y_echoed));
+%sound(y_echoed_normiert, Samplefrequenz);
+
+
 
 
 
