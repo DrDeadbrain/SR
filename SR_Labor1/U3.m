@@ -10,27 +10,32 @@ yDist = zeros(FileSize, 1);
 y_normiert = y/max(abs(y));
 
 %Abfrage für Funktion
-%type = input('Enter a distortion type(tanh= 1, bendiksen = 2): ');
-%d = input('Enter a distortion strength: ');
+type = input('Enter a distortion type(tanh= 1, bendiksen = 2): ');
+d = input('Enter a distortion strength: ');
 
 
-%Distortion mit Ausgabe
-%yDist = GuitarDistortion(y, type, d);
-%sound(y, Samplefrequenz);
-%pause(10)
-%sound(yDist, Samplefrequenz);
+%Distortion mit Ausgabe + Plot
+yDist = GuitarDistortion(y, type, d);
+yDist_norm = yDist/max(abs(yDist));
+
+
+plot(yDist);
+xlim([-1 1]);
+%Audioausgabe
+sound(y, Samplefrequenz);
+pause(10)
+sound(yDist_norm, Samplefrequenz);
+pause(10);
 
 
 %Delay (Echo)
 
-echo_delay = 0.2722; %in seconds
-echo_delay_s = round(echo_delay*Samplefrequenz); % delay in samples
-echo_gain = 0.1; % to control a linear gain of an echo
-y_echoed = feedback(y, [zeros(echo_delay_s - 1, 1); y(echo_delay_s:end)]);
-y_echoed_normiert = y_echoed/max(abs(y_echoed));
-sound(y_echoed_normiert, Samplefrequenz);
-mask = (-1 < x < 1);
-plot(yDist(mask));
+shifted_data = delayseq(y, 6000);
+y_delayed =feedback( y + shifted_data, +1);
+sound(y_delayed, Samplefrequenz);
+
+
+
 
 function yDist = GuitarDistortion(x, type, d)
     switch type
