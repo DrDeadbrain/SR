@@ -6,20 +6,31 @@ FileSize = size(y, 1);
 % Speicher für gefiltertes Signal anlegen
 yDist = zeros(FileSize, 1);
 
-type = input('Enter a distortion type(tanh= 1, bendiksen = 2): ');
-d = input('Enter a distortion strength: ');
+%Normalisierung des Signals [-1 ... 1]
+y_normiert = y/max(abs(y));
+
+%Abfrage für Funktion
+%type = input('Enter a distortion type(tanh= 1, bendiksen = 2): ');
+%d = input('Enter a distortion strength: ');
 
 
+%Distortion mit Ausgabe
+%yDist = GuitarDistortion(y, type, d);
+%sound(y, Samplefrequenz);
+%pause(10)
+%sound(yDist, Samplefrequenz);
 
-yDist = GuitarDistortion(y, type, d);
-sound(y, Samplefrequenz);
-pause(10)
-sound(yDist, Samplefrequenz);
+
 %Delay (Echo)
-%delayed_y = [zeros(6000, size(y,2)); y];
-%echo = [y; delayed_y];
-%sound(delayed_y, Samplefrequenz)
 
+echo_delay = 0.2722; %in seconds
+echo_delay_s = round(echo_delay*Samplefrequenz); % delay in samples
+echo_gain = 0.1; % to control a linear gain of an echo
+y_echoed = feedback(y, [zeros(echo_delay_s - 1, 1); y(echo_delay_s:end)]);
+y_echoed_normiert = y_echoed/max(abs(y_echoed));
+sound(y_echoed_normiert, Samplefrequenz);
+mask = (-1 < x < 1);
+plot(yDist(mask));
 
 function yDist = GuitarDistortion(x, type, d)
     switch type
