@@ -6,7 +6,7 @@ t_stop  = 5; fStop  = 5000;
 FSample = 10000; TSample = 1/FSample;
 % ----------------------------------------------
 t = t_start:TSample:t_stop;
-y = chirp(t, fStart, t_stop, fStop, 'logarithmic');
+y = chirp(t, fStart, t_stop, fStop, 'linear');
 y_norm = y / max(abs(y));
 
 % Anzahl der Samples best.

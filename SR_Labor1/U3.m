@@ -24,22 +24,22 @@ plot(t, yDist_norm);
 %xlim([-1 1]);
 
 %Audioausgabe
-sound(y, Samplefrequenz);
-pause(10)
-sound(yDist_norm, Samplefrequenz);
-pause(10);
+%sound(y, Samplefrequenz);
+%pause(10)
+%sound(yDist_norm, Samplefrequenz);
+%pause(10);
 
 
 %Delay (Echo)
 yEcho = y(:,1);
 delay = 6000;
-feedback = 0.5;
+feedback = 0.9;
 for i = 1:(length(yEcho)-delay)
     yTemp = yEcho(i,1) * feedback;
     yEcho((i + delay),1) = yEcho(i + delay,1) + yTemp;
 end
 
-%sound(yEcho, Samplefrequenz);
+sound(yEcho, Samplefrequenz);
 
 
 
