@@ -6,7 +6,8 @@ t_stop  = 5; fStop  = 5000;
 FSample = 10000; TSample = 1/FSample;
 % ----------------------------------------------
 t = t_start:TSample:t_stop;
-y = chirp(t, fStart, t_stop, fStop, 'logarithmic');
+y = chirp(t, fStart, t_stop, fStop, 'linear');
+y_norm = y / max(abs(y));
 
 % Anzahl der Samples best.
 FileSize = size(y, 1);
@@ -19,12 +20,15 @@ yFilter_250 = zeros(FileSize, 1);
 %Berechnung des gleitenden Mittelwertes ueber k
 k_10 = 10;
 yFilter_10 = movmean(y, k_10);
+yFilter_10_norm = yFilter_10/max(abs(yFilter_10));
 
 k_50 = 50;
 yFilter_50 = movmean(y, k_50);
+yFilter_50_norm = yFilter_50/max(abs(yFilter_50));
 
-k_100 = 100;
-yFilter_250 = movmean(y, k_100);
+k_250 = 250;
+yFilter_250 = movmean(y, k_250);
+yFilter_250_norm = yFilter_250/max(abs(yFilter_250));
 
 %yDist = filter([-1 1], 1, y);
 
@@ -55,8 +59,8 @@ plot(t, yFilter_250);
 title('Output k=250');
 grid on; hold on;
 
-sound(y, Samplefrequenz);
+sound(y_norm, Samplefrequenz);
 pause(5);
-sound(yFilter_250, Samplefrequenz);
+sound(yFilter_250_norm, Samplefrequenz);
 
 

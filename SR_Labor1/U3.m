@@ -1,10 +1,11 @@
 % Wavedatei lesen --> y 
-[y, Samplefrequenz] = audioread('C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ01\GitRiff02.wav');
+[y, Samplefrequenz] = audioread('Z:\win\Dokumente\MATLAB\LÜ01\LÜ01\GitRiff02.wav');
 % Anzahl der Samples best.
 FileSize = size(y, 1);
 
 % Speicher für gefiltertes Signal anlegen
 yDist = zeros(FileSize, 1);
+yEcho = zeros(FileSize, 1);
 
 %Normalisierung des Signals [-1 ... 1]
 y_normiert = y/max(abs(y));
@@ -15,40 +16,30 @@ d = input('Enter a distortion strength: ');
 
 
 %Distortion mit Ausgabe + Plot
-yDist = GuitarDistortion(y, type, d);
+yDist = GuitarDistortion(y(:,1), type, d);
 yDist_norm = yDist/max(abs(yDist));
 
+t = linspace(-1, 1, length(yDist_norm));
+plot(t, yDist_norm);
+%xlim([-1 1]);
 
-plot(yDist);
-xlim([-1 1]);
 %Audioausgabe
-sound(y, Samplefrequenz);
-pause(10)
-sound(yDist_norm, Samplefrequenz);
-pause(10);
+%sound(y, Samplefrequenz);
+%pause(10)
+%sound(yDist_norm, Samplefrequenz);
+%pause(10);
 
 
 %Delay (Echo)
+yEcho = y(:,1);
+delay = 6000;
+feedback = 0.9;
+for i = 1:(length(yEcho)-delay)
+    yTemp = yEcho(i,1) * feedback;
+    yEcho((i + delay),1) = yEcho(i + delay,1) + yTemp;
+end
 
-%n = 60000;
-%delayed_signal = [zeros(n, size(y,2)); y];
-%sound(delayed_signal,Samplefrequenz);
-
-shifted_data = delayseq(y, 6000);
-y_delayed =feedback( y + shifted_data, +1);
-sound(y_delayed, Samplefrequenz);
-
-%sound(full_sig, Samplefrequenz);
-%echo_delay = 0.2722; %in seconds
-%echo_delay_s = round(echo_delay*Samplefrequenz); % delay in samples
-%echo_gain = 0.1; % to control a linear gain of an echo
-%y_echoed =feedback(y, [zeros(echo_delay_s - 1, 1); y(echo_delay_s:end)]);
-%disp(y_echoed);
-%y_echoed_normiert = y_echoed/max(abs(y_echoed));
-%sound(y_echoed_normiert, Samplefrequenz);
-
-
-
+sound(yEcho, Samplefrequenz);
 
 
 
@@ -63,4 +54,3 @@ function yDist = GuitarDistortion(x, type, d)
           disp('Unknown Input')
     end
 end
-

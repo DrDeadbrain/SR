@@ -1,5 +1,5 @@
 % Wavedatei lesen --> y 
-[y, Samplefrequenz] = audioread('C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ01\JetztGehtsLos.wav');
+[y, Samplefrequenz] = audioread('Z:\win\Dokumente\MATLAB\LÜ01\LÜ01\JetztGehtsLos.wav');
 % Anzahl der Samples best.
 FileSize = size(y, 1);
 
@@ -11,12 +11,15 @@ yFilter_250 = zeros(FileSize, 1);
 %Berechnung des gleitenden Mittelwertes ueber k
 k_10 = 10;
 yFilter_10 = movmean(y, k_10);
+yFilter_10_norm = yFilter_10/max(abs(yFilter_10));
 
 k_50 = 50;
 yFilter_50 = movmean(y, k_50);
+yFilter_50_norm = yFilter_50/max(abs(yFilter_50));
 
 k_100 = 100;
 yFilter_100 = movmean(y, k_100);
+yFilter_100_norm = yFilter_100/max(abs(yFilter_100));
 
 %yDist = filter([-1 1], 1, y);
 
@@ -53,9 +56,9 @@ disp('SampleRate:')
 disp(Samplefrequenz);
 sound(y, Samplefrequenz);
 pause(5);
-sound(yFilter_10, Samplefrequenz);
+sound(yFilter_10_norm, Samplefrequenz);
 pause(5);
-sound(yFilter_50, Samplefrequenz);
+sound(yFilter_50_norm, Samplefrequenz);
 pause(5);
-sound(yFilter_100, Samplefrequenz);
+sound(yFilter_100_norm, Samplefrequenz);
 
