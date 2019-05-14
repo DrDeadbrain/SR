@@ -1,0 +1,36 @@
+function [outputSignal] = MyConv(x,y)
+%implementation of convolution operation
+% 2 input vectors -> input signal
+%                 -> impulse response
+% Output : resulting signal from convolving the two inputs
+
+X = [x, zeros(1, length(y))];
+Y = [y, zeros(1, length(x))];
+
+%FOR Loop to put the result of convolution between X and Y vectors 
+%in a new vector OUT. According to the convolution operation
+%characteristics, the length of  a resultant vector of convolution
+%operation between two vector is the sum of vectors length - 1
+for i = 1: length(y) + length(x) -1
+    %create a new vector OUT
+    OUT(i) = 0;
+
+    %FOR Loop to walk through the vector X and Y
+    for j = 1:length(x)
+     if(i-j+1>0)
+        OUT(i) = OUT(i) + X(j) * Y(i-j+1);
+     else
+     end
+    end
+end
+
+
+outputLength = X + Y -1;
+outputSignal = zeros(outputLength , 1);
+
+%convolution
+for i = 1:outputLength
+        outputSignal(i) = ifft(X.*Y);
+end
+end
+
