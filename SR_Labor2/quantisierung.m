@@ -3,7 +3,7 @@
 play_sound = true;
 
 Qsteps = [10, 20, 50, 100, 200, 500];
-inputSignal = 'C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ02\GitRiff.wav'; 
+inputSignal = 'Z:\win\Dokumente\MATLAB\sounds\LÜ02\GitRiff.wav'; 
 [y, inputFS] = audioread(inputSignal);
 
 
@@ -35,7 +35,7 @@ for i = Qsteps
     ylabel("Amplitude");
     hold on;
     
-    fprintf('Maximaler Absoultwert: %f\n', max(abs(qError)));
+    fprintf('Maximaler Absolutwert: %f\n', max(abs(qError)));
     
     if play_sound
         qAudio = audioplayer(normalizedQ, inputFS);

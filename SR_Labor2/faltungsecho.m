@@ -12,7 +12,7 @@ Echos =  [ 0.0       1.0;
 play_sound = true;
 
 %load gitriff.wav
-inputSignal = 'C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ02\GitRiff.wav'; 
+inputSignal = 'Z:\win\Dokumente\MATLAB\sounds\LÜ02\GitRiff.wav'; 
 [y, inputFS] = audioread(inputSignal);
 gitRaffAudio = audioplayer(y, inputFS); %to use playblocking()
 

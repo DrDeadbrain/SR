@@ -8,19 +8,17 @@ outputLength = length(x) + length(y) -1;
 outputSignal = zeros(outputLength, 1);
 
 inputPad = outputLength - length(x);
-X = [x; zeros(inputPad,1)];
+X = [zeros(inputPad,1); x];
 
-responsePad = outputLength - length(y);
-Y = [y; zeros(responsePad,1)];
 %FOR Loop to put the result of convolution between X and Y vectors 
 %in a new vector OUT. According to the convolution operation
 %characteristics, the length of  a resultant vector of convolution
 %operation between two vector is the sum of vectors length - 1
 
     %FOR Loop to walk through the vector X and Y
-for i = 1: outputLength
+for i = length(y): outputLength
     for j = 1: length(y)
-        outputSignal(i) = outputSignal(i) + X(j) * Y(j);
+        outputSignal(i) = outputSignal(i) + X(i + 1 - j) * y(j);
     end
 end
 end

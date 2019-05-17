@@ -1,7 +1,7 @@
-useMyConv = false;
+useMyConv = true;
 play_sound = true;
 %load gitriff.wav
-inputSignal = 'C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ02\GitRiff.wav'; 
+inputSignal = 'Z:\win\Dokumente\MATLAB\sounds\LÜ02\GitRiff.wav'; 
 [y, inputFS] = audioread(inputSignal);
 gitRaffAudio = audioplayer(y, inputFS); %to use playblocking()
 
@@ -10,7 +10,7 @@ gitRaffAudio = audioplayer(y, inputFS); %to use playblocking()
 % end
 
 %load trigRoom.wav
-responseSignal = 'C:\Users\Christian\Desktop\Uni\Vorlesung_Signalverarbeitung\3_Laborübung\LÜ02\Church2.wav';
+responseSignal = 'Z:\win\Dokumente\MATLAB\sounds\LÜ02\TrigRoom2.wav';
 [yTrig, responseFS] = audioread(responseSignal);
 responseAudio = audioplayer(yTrig, responseFS);
 
@@ -64,7 +64,7 @@ end
 
 %Abspielen der Systemantwort
 if play_sound
-    playblocking(audioplayer(outputSignal, responseFS));
+    playblocking(audioplayer(outputNormalized, responseFS));
 end
 
 
