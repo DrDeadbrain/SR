@@ -1,46 +1,42 @@
 %Aufgabe 3 -Untersuchung der DFT
 
-numSamples = 256;
-freq = 15.0;
+M = 256;
 
-t = 0 : numSamples - 1;
 
-testFreq = [15 15.25 15.5 50];
 
-for i = 1 : length(testFreq);
-    sig = cos(2*pi*testFreq(i)*t/numSamples);
-    Sig = fft(sig);
-    %f = (0 : (length(sig)-1)) / length(sig);
-    normSig = normalize(Sig);
-    
-figureName = sprintf('f = %d', testFreq(i));
-figure('Name', figureName, 'NumberTitle', 'off');
+FVec = [15 15.25 15.5 50];
 
-subplot(3, 1, 1);
-    plot(t, sig);
-    title('original signal');
-    xlabel(sprintf('t'));
-    ylabel('Amplitude');
+for F = FVec
+    %Generate signal
+    t = 0 : M - 1;
+    x = cos(2*pi*F*t/M);
     
-subplot(3, 1, 2);
-    plot(t, real(Sig),'r');
-    hold on;
-    plot(t, imag(Sig), 'g');
-    hold off;
-    %title('Spektrum Sig - real');
-    xlabel(sprintf('f'));
-    ylabel('Amplitude');
-    legend('real', 'imaginary');
+    %Perform fft
+    X = fft(x);
+    X = X / length(X);
     
-%subplot(3, 1, 3);
- %   plot(t, imag(Sig));
-  %  title('imaginary part of Sig');
-   % xlabel(sprintf('f'));
-    %ylabel('Amplitude');
+    %plot real/imaginary
+
+    subplot(4, 1, 1);
+        plot(t, x);
+        title('original signal');
+        xlabel(sprintf('t'));
+        ylabel('Amplitude');
     
-subplot(3, 1, 3);
-    plot(t, abs(Sig));
-    title('abs value of Sig');
-    xlabel(sprintf('f'));
-    ylabel('Amplitude');
+    subplot(4, 1, 2);
+        stem(t, real(X));
+        title(strcat('Real (F=', num2str(F), ')'));
+        axis([0 256 -inf inf]);
+    
+    subplot(4, 1, 3);
+        %plot(t, imag(X), 'bx', t, imag(X), 'b');
+        stem(t, imag(X));
+        title(strcat('Imag (F=', num2str(F), ')'));
+        axis([0 256 -inf inf]);
+
+  subplot(4, 1, 4);
+        %plot(t, abs(X), 'bx', t, abs(X), 'b');
+        stem(t, abs(X));
+        title(strcat('Abs (F=', num2str(F), ')'));
+        axis([0 256 -inf inf]);
 end
