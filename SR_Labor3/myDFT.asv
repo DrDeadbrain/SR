@@ -1,0 +1,15 @@
+function [A, B] = myDft(Signal)
+sigLength = length(Signal); %M
+%sigPeriod = 1;             %T = 1
+fundfreq = 1;
+
+%pre allocate space
+A = zeros(1, sigLength);
+B = zeros(1, sigLength);
+
+t = 0 : 1/sigLength : 1 - 1/signLength;
+
+for f = 0 : sigLength - 1
+
+end
+
