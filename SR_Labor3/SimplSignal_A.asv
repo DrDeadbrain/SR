@@ -2,7 +2,7 @@
 %function
 
 %Signal 
-s = [0 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1];
+s = [1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1];
 sLength = length(s);
 step = 1/sLength;
 t = 0 : step : 1  - step;
@@ -26,29 +26,42 @@ b_fft = b_fft / length(b_fft);
 
 % Plot Results
 x = linspace(1, length(s), length(s));
-    subplot(3, 2, 1);
-    stem(x, s);
+    subplot(3, 1, 1);
+    stem(x, s, 'bx', x, s, 'b');
     title('Signal');
 
-subplot(3, 2, 3);
-    stem(x, a);
+subplot(6, 1, 1);
+    stem(x, a ,'bx', x, a_fft ,'r+', x, a, 'b', x, a_fft, 'r');
+    hold on;
+    stem(x, a ,'bx', x, a_fft ,'r+', x, a, 'b', x, a_fft, 'r');
     title('Coeffs for COS: a');
+    legend('myDFT()', 'fft()');
 
-subplot(3, 2, 5);
-    stem(x, b);
+subplot(6, 1, 2);
+    stem(x, b ,'bx', x, b_fft ,'r+', x, b, 'b', x, b_fft, 'r');
     title('Coeffs for SIN: b');
+    legend('myDFT()', 'fft()');
     
-subplot(3, 2, 2);
-    stem(x, s);
+subplot(6, 1, 2);
+    stem(x, b ,'bx', x, b_fft ,'r+', x, b, 'b', x, b_fft, 'r');
     title('Coeffs for SIN: b');
+    legend('myDFT()', 'fft()');
 
-subplot(3, 2, 4);
-    stem(x, a_fft);
+subplot(6, 1, 2);
+    stem(x, b ,'bx', x, b_fft ,'r+', x, b, 'b', x, b_fft, 'r');
     title('Coeffs for SIN: b');
+    legend('myDFT()', 'fft()');
    
-subplot(3, 2, 6);
-    stem(x, b_fft);
+subplot(6, 1, 2);
+    stem(x, b ,'bx', x, b_fft ,'r+', x, b, 'b', x, b_fft, 'r');
     title('Coeffs for SIN: b');
+    legend('myDFT()', 'fft()');
+    
+subplot(6, 1, 2);
+    stem(x, b ,'bx', x, b_fft ,'r+', x, b, 'b', x, b_fft, 'r');
+    title('Coeffs for SIN: b');
+    legend('myDFT()', 'fft()');
+
 pause;
 
 %%

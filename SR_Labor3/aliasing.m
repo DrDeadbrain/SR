@@ -1,4 +1,5 @@
 %%Aufgabe 1 
+
 %Aliasing - Diskrete Fouriertransformation
 
 %%
