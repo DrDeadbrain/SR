@@ -11,6 +11,11 @@ for F = FVec
     t = 0 : M - 1;
     x = cos(2*pi*F*t/M);
     
+    win = hann(M)';
+    x = x .* win;
+    
+    
+    
     %Perform fft
     X = fft(x);
     X = X / length(X);
@@ -18,7 +23,7 @@ for F = FVec
     %plot real/imaginary
 
     subplot(4, 1, 1);
-        plot(t, x);
+        stem(t, x);
         title('original signal');
         xlabel(sprintf('t'));
         ylabel('Amplitude');
@@ -39,4 +44,6 @@ for F = FVec
         stem(t, abs(X));
         title(strcat('Abs (F=', num2str(F), ')'));
         axis([0 256 -inf inf]);
+        
+  pause;
 end
